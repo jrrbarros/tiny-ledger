@@ -10,15 +10,16 @@ This application shows how we can develop a simple web application to perform so
 ## Relevant files
 
 ### Models
-- **`app/models/account.rb`** - Core domain model representing a bank account. Contains business logic for deposits and withdrawals, maintains balance and transaction history. Includes validation for positive amounts and sufficient funds for withdrawals.
+- **`app/models/account.rb`** - Core domain model representing a bank account. Contains business logic for deposits and withdrawals, maintains balance and transaction history (represented as an array). Includes validation for positive amounts and sufficient funds for withdrawals.
 
 - **`app/models/transaction.rb`** - Simple value object representing individual financial transactions. Stores transaction type (deposit/withdrawal), amount, and timestamp.
 
 ### Services
 - **`app/services/accounts_service.rb`** - Service layer that manages account operations. Acts as a facade between controllers and the Account model. Currently manages a single "dummy" account but designed to be extensible for multiple accounts. Handles balance queries, deposits, withdrawals, and transaction history retrieval.
+Note: The accounts structure is a map between id and account. This service can possibly be replaced by a bank class that manages accounts (including creation).
 
 ### Controllers
-- **`app/controllers/accounts_controller.rb`** - Main API controller handling all account-related HTTP requests. Implements RESTful endpoints for balance checking, deposits, withdrawals, and transaction history. Includes parameter validation and error handling with appropriate HTTP status codes.
+- **`app/controllers/accounts_controller.rb`** - Main API controller handling all account-related HTTP requests. Implements RESTful endpoints for balance checking, deposits, withdrawals, and transaction history. Includes parameter validation for the amount field and error handling with appropriate HTTP status codes.
 
 
 ## Requisites
