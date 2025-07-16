@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+# Exit on any error
+set -e
+
+# Get the directory where this script is located
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+APP_ROOT="$(dirname "$SCRIPT_DIR")"
+
+echo "== Booting Tiny Ledger =="
+
+# Change to the application root directory
+cd "$APP_ROOT"
+
+# Check if we're in a development environment
+if [ -z "$RAILS_ENV" ]; then
+  export RAILS_ENV=development
+fi
+
+# Check if bundle is available and install dependencies if needed
+if ! command -v bundle &> /dev/null; then
+  echo "Bundler not found. Please install Ruby and Bundler first."
+  exit 1
+fi
+
+# Install dependencies if needed
+echo "== Checking dependencies =="
+if ! bundle check &> /dev/null; then
+  echo "Installing dependencies..."
+  bundle install
+fi
+
+# Prepare database if it doesn't exist
+echo "== Preparing database =="
+if ! bin/rails db:version &> /dev/null; then
+  echo "Setting up database..."
+  bin/rails db:create db:migrate
+else
+  echo "Database already exists, running migrations..."
+  bin/rails db:migrate
+fi
+
+# Clear old logs and temp files
+echo "== Cleaning up =="
+bin/rails log:clear tmp:clear
+
+# Start the Rails server
+echo "== Starting Rails server =="
+echo "Server will be available at: http://127.0.0.1:3000"
+echo "Press Ctrl+C to stop the server"
+echo ""
+
+# Use the existing dev script to start the server
+exec bin/dev 

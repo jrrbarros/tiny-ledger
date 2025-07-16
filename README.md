@@ -1,24 +1,20 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This application shows how we can develop a simple web application
+to perform some ledger operations.
 
-Things you may want to cover:
+## Some assumptions
+- We expect to have multiple accounts in the system and even save every transaction in the DB. For now we store using the Ruby standard structures.
 
-* Ruby version
+Requisites
+- Ruby 3.4.4 must be installed.
 
-* System dependencies
+Base installation
+Rbenv must be installed. You can use your OS package manager (eg. Mac OS ```brew```).
 
-* Configuration
+## How to run the application
+```bash
+/bin/run
+```
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+This script will handle dependencies, migrations and the startup procedure on any environment
