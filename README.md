@@ -6,7 +6,7 @@ This application shows how we can develop a simple web application to perform so
 - Since we don't have authentication for now, I'm assuming that we always manage the same account. All calls might have whatever id you want, but internally we'll be using "dummy".
 - We're assuming that a transaction just have the type of operation, amount (always positive values) and timestamp.
 
-Requisites
+## Requisites
 - Ruby 3.4.4 must be installed. Use ```rbenv``` and set Ruby 3.4.4 as default. It can be installed using the OS package manager (eg. Mac OS ```brew```).
 
 ## How to run the application
